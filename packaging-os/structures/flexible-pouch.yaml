@@ -1,0 +1,38 @@
+id: flexible-pouch
+family: flexible_packaging
+engineering_output: bag_specification_drawing
+status: spec_supported_generator_planned
+
+required_inputs:
+  - finished_width_mm
+  - finished_height_mm
+  - material_structure
+
+conditional_inputs:
+  - film_thickness_microns
+  - top_header_height_mm
+  - top_seal_mm
+  - side_seal_mm
+  - bottom_seal_mm
+  - hang_hole_geometry
+  - clear_window_geometry
+  - print_limitations
+
+spec_sections:
+  - finished_size
+  - material
+  - seal_zones
+  - hang_hole
+  - clear_window
+  - printable_area
+  - safe_area
+  - front_artwork_placement
+  - back_artwork_placement
+
+rules:
+  - concept_stage_may_use_tbd_for_unconfirmed_dimensions
+  - engineering_ready_requires_confirmed_dimensions
+  - production_ready_requires_vendor_confirmation
+  - standard_hang_hole_may_use_vendor_standard_tooling
+  - custom_hang_hole_requires_tooling_confirmation
+  - never_infer_bag_size_from_product_size_without_validated_rule
