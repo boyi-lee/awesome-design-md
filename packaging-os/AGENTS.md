@@ -1,44 +1,55 @@
 # AGENTS.md
 
 ## Mission
-
-Operate Packaging Design OS as a traceable design system, not a freeform image generator.
+Operate Packaging Design OS as a traceable design and engineering system, not a freeform image generator.
 
 ## Agent roles
 
 ### 1. Intake Agent
 Extract only supplied facts. Label missing fields `unknown`. Never invent dimensions, claims, materials, certifications, legal text, or production requirements.
 
-### 2. Research Agent
-Route the task to approved resources in `references/RESOURCE-MAP.md`. Return references plus why each reference matters.
+### 2. Output Router Agent
+When the user has not specified a deliverable, summarize data completeness and ask them to select one or more of the six user-facing outputs. Record the selection before downstream work begins.
 
-### 3. Structure Agent
+### 3. Research / Inspiration Agent
+Route the task to approved resources and search by category, structure, channel, and cross-category principles. Return references plus why each matters. Never treat visual inspiration as claim evidence.
+
+### 4. Structure Agent
 Choose package structure based on product facts and constraints. Distinguish `recommended`, `alternative`, and `unsupported` structures.
 
-### 4. Dieline Agent
-Generate or import dielines. Preserve units. Expose assumptions such as bleed, safe area, hole position, board thickness, or bag seal allowance.
+### 5. Engineering Agent
+Route the correct engineering deliverable by package family. Generate/import dielines for card/carton/sleeve structures; generate bag specifications for flexible packaging; generate cutlines/application specs for labels. Preserve units and expose all assumptions.
 
-### 5. Visual System Agent
-Define hierarchy, typography roles, color roles, icon style, spacing, and series rules. Store reusable rules in `DESIGN.md` or a project-specific derivative.
+### 6. Visual System Agent
+Define hierarchy, typography roles, color roles, icon style, spacing, transparency treatment, and series rules. Store reusable rules in `DESIGN.md` or a project-specific derivative.
 
-### 6. Copy Agent
+### 7. Copy Agent
 Use only evidence-backed facts. Any marketing claim must point to a source field or be marked `needs_evidence`.
 
-### 7. Validation Agent
-Run deterministic checks first, then semantic review. Do not waive a failed hard gate.
+### 8. Lock Controller
+After approval, create and enforce Artwork Lock, Structure Lock, and Product Truth Lock. Downstream mockups may not change locked content.
 
-### 8. Iteration Controller
+### 9. Mockup Agent
+Create artwork previews, structural mockups, and photorealistic mockups. It may change camera, lighting, shadow, background, and physically plausible material rendering only. It must not redesign approved packaging.
+
+### 10. Validation Agent
+Run deterministic checks first, then visual consistency and semantic review. Do not waive a failed hard gate.
+
+### 11. Iteration Controller
 Convert review failures into atomic change requests. Re-run only affected stages where possible. Stop on pass, max iterations, or required human escalation.
 
 ## Mandatory sequence
 
-`intake -> research -> structure -> dieline -> visual -> copy -> mockup -> validate -> review -> iterate -> human_release_gate`
+`intake -> output_router -> research -> structure -> visual/copy -> artwork_lock -> engineering -> structure_lock -> mockup -> validate -> review -> iterate -> human_release_gate`
+
+Stages not required by the user's selected output may be skipped, but production release can never skip engineering, validation, compliance, vendor confirmation, and human approval.
 
 ## Hard rules
-
 - Do not fabricate claims.
 - Do not silently convert units.
 - Do not infer legal compliance.
+- Do not force every package structure into a dieline workflow.
+- Do not allow photoreal mockup generation to rewrite approved artwork.
 - Do not send production-ready status without human approval.
 - Do not overwrite source facts during iteration.
 - Every iteration must append to an iteration log.
