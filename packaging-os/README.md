@@ -1,85 +1,133 @@
 # Packaging Design OS
 
-AI-native packaging design workflow that turns product facts into research, structure, artwork direction, dielines, mockups, validation, and an auditable iteration loop.
+AI-native packaging workflow that turns product facts into research, package structure, dielines, artwork direction, mockups, validation, iteration, and controlled production release.
 
-## Purpose
-
-This folder extends the design-resource mindset of this repository into a packaging workflow. It does **not** copy third-party repositories wholesale. External projects are treated as adapters/reference engines and are listed in `adapters/README.md`.
-
-## Core pipeline
+## End-to-end flow
 
 ```text
-Product facts
+Product facts / images / PDF / PIM
   -> Intake contract
+  -> Evidence check
   -> Reference research
-  -> Packaging structure choice
+  -> Structure routing
   -> Dieline generation/import
-  -> Visual system
-  -> Artwork brief
+  -> Visual system + copy
   -> Mockup/prototype
   -> Deterministic validation
   -> AI review
-  -> Human gate
-  -> Iteration loop
-  -> Release package
+  -> DIFF / ROOT CAUSE / PATCH
+  -> Re-run affected stages
+  -> Human release gate
+  -> Production package
+  -> Printer/retail feedback
+  -> Promote repeated fixes into rules/tests/templates
 ```
 
-## AI-native principles
+## AI-native rules
 
-1. Facts and assumptions are separated.
-2. Every AI output has an input contract and output contract.
-3. Claims not present in source data are blocked.
-4. Deterministic checks run before subjective AI review.
-5. Each iteration records defects, changes, and pass/fail state.
-6. Human approval is mandatory before print-production release.
-7. Reusable knowledge lives in templates, schemas, design rules, and review history.
+1. Facts, assumptions, decisions, and unknowns are separate.
+2. Every agent has an input/output contract.
+3. Claims require evidence; unsupported claims are blocked.
+4. Deterministic validation runs before subjective review.
+5. The system routes to a packaging structure instead of assuming one.
+6. Printer requirements live in reusable vendor profiles.
+7. Compliance is a verified checklist, never AI-invented legal copy.
+8. Production release is a distinct state and always requires human approval.
+9. Every failed loop records root cause and patch.
+10. Repeated defects are promoted into reusable system knowledge.
 
 ## Loop Engineering
 
-The loop is not "generate again until it looks good". Each cycle is:
-
 ```text
-PLAN -> GENERATE -> VALIDATE -> REVIEW -> DIFF -> PATCH -> RE-RUN
+PLAN -> GENERATE -> VALIDATE -> REVIEW -> DIFF -> ROOT CAUSE -> PATCH -> RE-RUN
 ```
 
-See `docs/LOOP-ENGINEERING.md`.
+The objective is to fix the cause, not repeatedly change prompts until an output happens to look acceptable.
 
-## Quick start
+See:
+- `docs/LOOP-ENGINEERING.md`
+- `loop-engine/ROOT-CAUSE-TAXONOMY.md`
 
-```bash
-cd packaging-os
-python scripts/validate_job.py examples/W0987/job.yaml
-python scripts/generate_header_card.py examples/W0987/job.yaml outputs/W0987-header-card.svg
-python -m unittest discover tests
-```
-
-## Repository map
+## Current modules
 
 ```text
 packaging-os/
 ├── AGENTS.md
 ├── SKILL.md
-├── README.md
 ├── DESIGN.md
 ├── adapters/
+├── compliance/
+│   └── taiwan/
 ├── docs/
+├── examples/
+│   └── W0987/
+├── loop-engine/
+├── outputs/
 ├── references/
 ├── schemas/
 ├── scripts/
+├── structures/
 ├── templates/
-├── examples/
 ├── tests/
-└── outputs/
+└── vendors/
 ```
 
-## Current MVP scope
+## Structure routing
 
-- Header-card packaging
-- Simple rectangular dieline generation to SVG
-- Structured product-fact intake
-- Evidence/claim guardrails
-- Design-resource routing
-- Validation gates
-- Iteration log contract
+`structures/STRUCTURE-REGISTRY.yaml` currently defines:
+- header card: supported MVP
+- folding carton: adapter required
+- pouch: planned
+- label: planned
+- sleeve: planned
 
-Future adapters can add folding cartons, FEFCO structures, richer 3D preview, and production-specific CAD without changing the core workflow.
+If production-critical inputs are missing, routing returns `BLOCKED` rather than inventing dimensions.
+
+## Vendor profiles
+
+Printer specifications belong in `vendors/*.yaml`. Unknown bleed, safe area, print profile, tolerances, or export requirements block production release.
+
+See `vendors/vendor-profile.template.yaml`.
+
+## Compliance
+
+Compliance files are verification scaffolds, not legal advice. AI may identify missing fields, but it may not invent regulatory requirements or legal copy.
+
+Current scaffold:
+- `compliance/taiwan/household-product-checklist.yaml`
+
+## Production release
+
+Design completion does not equal print approval.
+
+A release requires:
+- clean source/evidence state
+- confirmed structure and production geometry
+- confirmed vendor profile
+- compliance verification
+- hard gates passed
+- human approval
+
+See `docs/RELEASE-PROCESS.md`.
+
+## Deterministic release gate
+
+```bash
+python packaging-os/scripts/release_gate.py \
+  packaging-os/examples/W0987/job.yaml \
+  packaging-os/vendors/vendor-profile.template.yaml
+```
+
+The W0987 demo is expected to be BLOCKED because it intentionally contains demonstration geometry and an unsupported claim. That is correct behavior, not a test failure.
+
+## Quick start
+
+```bash
+python packaging-os/scripts/validate_job.py packaging-os/examples/W0987/job.yaml
+python packaging-os/scripts/generate_header_card.py packaging-os/examples/W0987/job.yaml packaging-os/outputs/W0987-header-card.svg
+python -m unittest discover packaging-os/tests
+```
+
+## Current boundary
+
+The system can already demonstrate controlled header-card generation and validation. Folding-carton/Pouch/Label/Sleeve production geometry still requires adapters or future native generators. DXF/PDF production exporters and verified printer-specific profiles remain expansion modules.
