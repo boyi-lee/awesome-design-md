@@ -1,0 +1,65 @@
+version: 1
+structures:
+  header-card:
+    status: supported
+    best_for:
+      - soft goods
+      - accessories
+      - hanging retail display
+    required_inputs:
+      - card_width_mm
+      - card_height_mm
+      - hole_geometry
+      - bleed_mm
+      - safe_margin_mm
+    outputs:
+      - svg
+    production_gate:
+      - printer_specs_confirmed
+      - physical_fit_confirmed
+  folding-carton:
+    status: adapter_required
+    best_for:
+      - boxed retail products
+    required_inputs:
+      - length_mm
+      - width_mm
+      - depth_mm
+      - board_thickness_mm
+      - carton_style
+    preferred_adapters:
+      - OpenDieline
+      - PackagingWorkbench
+      - BoxUnfolder
+    outputs:
+      - svg
+      - dxf
+      - pdf
+  pouch:
+    status: planned
+    required_inputs:
+      - finished_width_mm
+      - finished_height_mm
+      - seal_allowance_mm
+      - material_structure
+  label:
+    status: planned
+    required_inputs:
+      - finished_width_mm
+      - finished_height_mm
+      - substrate
+      - application_surface
+  sleeve:
+    status: planned
+    required_inputs:
+      - product_width_mm
+      - product_height_mm
+      - product_depth_mm
+      - overlap_mm
+routing_rules:
+  - if: product_is_soft_and_visible_product_is_desirable
+    prefer: header-card
+  - if: product_requires_full_surface_protection_or_shelf_stackability
+    prefer: folding-carton
+  - if: structure_inputs_are_missing
+    result: BLOCKED
