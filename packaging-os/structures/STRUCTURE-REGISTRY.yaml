@@ -1,7 +1,8 @@
-version: 1
+version: 2
 structures:
   header-card:
     status: supported
+    family: rigid_or_card
     best_for:
       - soft goods
       - accessories
@@ -12,13 +13,17 @@ structures:
       - hole_geometry
       - bleed_mm
       - safe_margin_mm
+    engineering_output: dieline
     outputs:
       - svg
+      - pdf
     production_gate:
       - printer_specs_confirmed
       - physical_fit_confirmed
+
   folding-carton:
     status: adapter_required
+    family: rigid_or_card
     best_for:
       - boxed retail products
     required_inputs:
@@ -31,35 +36,82 @@ structures:
       - OpenDieline
       - PackagingWorkbench
       - BoxUnfolder
+    engineering_output: dieline
     outputs:
       - svg
       - dxf
       - pdf
+
   pouch:
-    status: planned
+    status: spec_supported_generator_planned
+    family: flexible_packaging
+    best_for:
+      - soft goods
+      - lightweight retail products
+      - transparent product display
     required_inputs:
       - finished_width_mm
       - finished_height_mm
-      - seal_allowance_mm
       - material_structure
+    conditional_inputs:
+      - film_thickness_microns
+      - top_header_height_mm
+      - top_seal_mm
+      - side_seal_mm
+      - bottom_seal_mm
+      - hang_hole_geometry
+      - clear_window_geometry
+      - print_limitations
+    engineering_output: bag_specification_drawing
+    outputs:
+      - svg
+      - pdf
+    production_gate:
+      - finished_size_confirmed
+      - seal_geometry_confirmed
+      - material_structure_confirmed
+      - printer_specs_confirmed
+
   label:
     status: planned
+    family: applied_graphic
     required_inputs:
       - finished_width_mm
       - finished_height_mm
       - substrate
       - application_surface
+    engineering_output: cutline_and_application_spec
+    outputs:
+      - svg
+      - pdf
+
   sleeve:
     status: planned
+    family: rigid_or_card
     required_inputs:
       - product_width_mm
       - product_height_mm
       - product_depth_mm
       - overlap_mm
+    engineering_output: dieline
+    outputs:
+      - svg
+      - pdf
+
 routing_rules:
-  - if: product_is_soft_and_visible_product_is_desirable
+  - if: existing_verified_package_structure_is_provided
+    prefer: existing_structure
+  - if: product_is_soft_and_visible_product_is_desirable_and_card_mount_is_appropriate
     prefer: header-card
+  - if: product_is_soft_or_foldable_and_film_bag_is_appropriate
+    prefer: pouch
   - if: product_requires_full_surface_protection_or_shelf_stackability
     prefer: folding-carton
   - if: structure_inputs_are_missing
-    result: BLOCKED
+    result: BLOCKED_FOR_PRODUCTION
+
+engineering_rules:
+  - never_force_all_structures_into_dieline
+  - flexible_packaging_uses_bag_specification_unless_vendor_requires_special_die
+  - standard_hang_holes_may_use_vendor_standard_tooling
+  - special_custom_holes_require_vendor_tooling_confirmation
