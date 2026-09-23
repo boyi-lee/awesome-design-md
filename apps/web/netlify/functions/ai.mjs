@@ -4,7 +4,7 @@ const json = (statusCode, body) => ({
   body: JSON.stringify(body),
 });
 
-const model = process.env.OPENAI_MODEL || 'gpt-5.6-terra';
+const model = process.env.OPENAI_MODEL || 'gpt-5';
 
 async function openai(body) {
   const key = process.env.OPENAI_API_KEY;
