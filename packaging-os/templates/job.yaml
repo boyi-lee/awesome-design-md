@@ -1,0 +1,24 @@
+job_id: JOB-0001
+sku: SKU-001
+product:
+  name: ""
+  dimensions: {}
+  materials: []
+  claims: []
+package:
+  structure: unknown
+  unit: mm
+  width: null
+  height: null
+  bleed: null
+  safe_margin: null
+evidence:
+  - id: SRC-001
+    type: source-document
+    locator: ""
+assumptions: []
+constraints: []
+loop:
+  max_iterations: 5
+  current_iteration: 0
+  state: DRAFT

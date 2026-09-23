@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Packaging Design OS Job",
+  "type": "object",
+  "required": ["job_id", "sku", "product", "package", "evidence"],
+  "properties": {
+    "job_id": {"type": "string", "minLength": 1},
+    "sku": {"type": "string", "minLength": 1},
+    "product": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "dimensions": {"type": "object"},
+        "materials": {"type": "array", "items": {"type": "string"}},
+        "claims": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "package": {
+      "type": "object",
+      "required": ["structure", "unit"],
+      "properties": {
+        "structure": {"type": "string"},
+        "unit": {"enum": ["mm", "cm", "in"]},
+        "width": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "height": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "bleed": {"type": ["number", "null"], "minimum": 0},
+        "safe_margin": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "evidence": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "constraints": {"type": "array", "items": {"type": "string"}}
+  }
+}
