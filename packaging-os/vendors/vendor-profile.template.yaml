@@ -1,0 +1,33 @@
+vendor_id: REPLACE_ME
+vendor_name: REPLACE_ME
+status: draft
+contact:
+  name: unknown
+  email: unknown
+production:
+  process: unknown
+  color_mode: CMYK
+  profile: unknown
+  min_text_pt: unknown
+  min_line_pt: unknown
+  image_dpi_min: unknown
+  bleed_mm: unknown
+  safe_margin_mm: unknown
+  overprint_required_for_dieline: unknown
+  accepted_formats:
+    - pdf
+    - ai
+    - svg
+  pdf_standard: unknown
+dieline:
+  cut_spot_name: CUT
+  fold_spot_name: FOLD
+  perforation_spot_name: PERF
+  hole_spot_name: HOLE
+approval:
+  source_document: unknown
+  confirmed_by: unknown
+  confirmed_at: unknown
+rules:
+  - unknown values block production release
+  - never infer printer tolerances from another vendor

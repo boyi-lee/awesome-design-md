@@ -1,0 +1,42 @@
+job_id: W0987-PACKAGING-MVP
+sku: W0987
+product:
+  name: "采漾／立體內衣洗淨袋【18×16cm】"
+  dimensions:
+    diameter_cm: 18
+    height_cm: 16
+  materials:
+    - "100% Polyester 聚酯纖維"
+    - "塑膠框/PP 聚丙烯"
+  claims:
+    - text: "立體內衣洗淨袋"
+      status: approved
+      evidence_id: SRC-PDF-P7
+    - text: "防止內衣變形"
+      status: needs_evidence
+package:
+  structure: header-card
+  unit: mm
+  width: 100
+  height: 60
+  bleed: 3
+  safe_margin: 4
+evidence:
+  - id: SRC-PDF-P7
+    type: source-document
+    locator: "04_L洗衣.pdf page 7 / parsed lines 231-236"
+    supports:
+      - "SKU W0987"
+      - "product name"
+      - "18×16cm product dimensions"
+      - "Polyester and PP materials"
+      - "price 75 TWD"
+assumptions:
+  - "Header-card width 100 mm and height 60 mm are MVP demonstration values only; original PDF does not provide card dimensions."
+  - "Bleed 3 mm and safe margin 4 mm are demonstration defaults, not printer-approved specifications."
+constraints:
+  - "Do not claim protection against deformation without evidence."
+loop:
+  max_iterations: 5
+  current_iteration: 0
+  state: DRAFT

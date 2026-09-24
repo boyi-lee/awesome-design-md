@@ -1,0 +1,66 @@
+job_id: B6827-PACKAGING-TEST
+sku: B6827
+product:
+  name: "UD便捷無塑化劑透明雨衣/1入"
+  dimensions:
+    width_cm: 54
+    height_cm: 115
+    tolerance_percent: 3
+  materials:
+    - "雨衣 / PEVA 聚乙烯-醋酸乙烯酯"
+    - "扣子 / PP 聚丙烯"
+  claims:
+    - text: "PEVA材質"
+      status: approved
+      evidence_id: SRC-SCREENSHOT-001
+    - text: "可重複使用"
+      status: approved
+      evidence_id: SRC-SCREENSHOT-001
+    - text: "透明防雨"
+      status: approved
+      evidence_id: SRC-SCREENSHOT-001
+    - text: "連帽加長設計"
+      status: approved
+      evidence_id: SRC-SCREENSHOT-001
+    - text: "帽繩可調節"
+      status: approved
+      evidence_id: SRC-SCREENSHOT-001
+    - text: "前開式按扣設計"
+      status: approved
+      evidence_id: SRC-SCREENSHOT-001
+    - text: "可摺疊收納"
+      status: approved
+      evidence_id: SRC-SCREENSHOT-001
+package:
+  structure: pouch
+  unit: mm
+  width: null
+  height: null
+  bleed: null
+  safe_margin: null
+  material_structure: "OPP複合袋"
+evidence:
+  - id: SRC-SCREENSHOT-001
+    type: source-image
+    locator: "Conversation upload: 截圖 2026-09-23 下午4.14.34.png"
+    supports:
+      - "SKU B6827"
+      - "product name"
+      - "54×115cm ±3% product dimensions"
+      - "PEVA raincoat material"
+      - "PP button material"
+      - "OPP composite bag package material"
+      - "cleaning instruction: wipe stains with damp cloth then rinse with clean water"
+      - "storage instruction: store in a cool ventilated place"
+      - "shelf-life statement: unopened, normal-temperature storage for 10 years"
+      - "country of origin: MADE IN CHINA"
+      - "feature claims listed in the source slide"
+assumptions: []
+constraints:
+  - "Do not infer finished pouch dimensions from the 54×115cm garment dimensions."
+  - "Do not invent bleed, safe margin, seal allowance, zipper, tear notch, hang hole, barcode area, or printer requirements."
+  - "Do not add performance claims beyond the supplied source."
+loop:
+  max_iterations: 5
+  current_iteration: 0
+  state: BLOCKED

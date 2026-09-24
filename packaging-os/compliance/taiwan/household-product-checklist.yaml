@@ -1,0 +1,22 @@
+jurisdiction: Taiwan
+category: household_product
+status: verification_required
+purpose: checklist_only
+warning: This file is not legal advice. Requirements must be verified against current Taiwan regulations and the actual product classification before release.
+fields_to_verify:
+  - product_name
+  - material_or_composition
+  - dimensions_or_specification
+  - country_of_origin
+  - manufacturer_or_importer_information
+  - warnings_or_precautions_if_applicable
+  - usage_or_care_information_if_applicable
+  - barcode_or_retail_identifier_if_required_by_channel
+validation:
+  any_unverified_required_field: BLOCKED
+  conflicting_source_information: BLOCKED
+  unsupported_mark_or_certification: FAIL
+agent_rules:
+  - never invent legal copy
+  - never infer mandatory fields solely from visual references
+  - attach a source citation or responsible human approval to every verified legal requirement

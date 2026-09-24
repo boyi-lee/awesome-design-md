@@ -1,0 +1,30 @@
+.setupNotice {
+  max-width: 1224px;
+  margin: 0 auto 18px;
+  padding: 14px 16px;
+  border: 1px solid #fed7aa;
+  background: #fff7ed;
+  color: #9a3412;
+  border-radius: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.setupNotice strong,
+.setupNotice span {
+  display: block;
+}
+
+.setupNotice span {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.setupNotice code {
+  background: #ffedd5;
+  border-radius: 5px;
+  padding: 2px 5px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+}

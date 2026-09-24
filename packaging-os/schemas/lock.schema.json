@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Packaging OS Lock Contract",
+  "type": "object",
+  "required": ["job_id", "artwork_lock", "structure_lock", "product_truth_lock"],
+  "properties": {
+    "job_id": {"type": "string"},
+    "artwork_lock": {
+      "type": "object",
+      "properties": {
+        "locked": {"type": "boolean"},
+        "items": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": ["locked", "items"]
+    },
+    "structure_lock": {
+      "type": "object",
+      "properties": {
+        "locked": {"type": "boolean"},
+        "items": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": ["locked", "items"]
+    },
+    "product_truth_lock": {
+      "type": "object",
+      "properties": {
+        "locked": {"type": "boolean"},
+        "items": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": ["locked", "items"]
+    }
+  }
+}

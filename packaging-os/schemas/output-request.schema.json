@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Packaging OS Output Request",
+  "type": "object",
+  "required": ["job_id", "requested_outputs"],
+  "properties": {
+    "job_id": {"type": "string"},
+    "requested_outputs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "product_data",
+          "packaging_brief",
+          "packaging_copy",
+          "packaging_design",
+          "structure_production_spec",
+          "full_packaging_development"
+        ]
+      }
+    },
+    "target_stage": {
+      "enum": ["CONCEPT", "DESIGN_APPROVED", "ENGINEERING_READY", "PRODUCTION_READY", "RELEASED"]
+    },
+    "notes": {"type": "string"}
+  }
+}
